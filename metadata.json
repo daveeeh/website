@@ -2,5 +2,7 @@
   "name": "David Hodges - Android Apps",
   "description": "Personal landing page for Android developer David Hodges. Simple, quiet showcase for andMoney, VolumeLink, Song Notifications, and TFC Tracker.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
