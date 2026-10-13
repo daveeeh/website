@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>David Hodges — Android Apps</title>
   <meta name="description" content="Personal Android apps by David Hodges, including andMoney, BusWatch, VolumeLink, Song Notifications, and TFC Tracker." />
+  <meta name="theme-color" content="#3F51B5" />
   
   <meta property="og:title" content="David Hodges" />
   <meta property="og:description" content="Simple, useful Android utilities by David Hodges." />
@@ -23,61 +24,95 @@
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
+    #stickyToolbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
   </style>
 </head>
-<body class="bg-zinc-50 text-zinc-900 min-h-screen antialiased flex flex-col justify-between selection:bg-zinc-200">
+<body class="bg-zinc-50 text-zinc-900 min-h-screen antialiased selection:bg-indigo-100 selection:text-indigo-900">
 
-  <div class="max-w-2xl mx-auto px-6 py-16 sm:py-24 w-full">
-    
-    <!-- HEADER -->
-    <header class="mb-12">
-      <div class="flex items-baseline justify-between gap-4 mb-3">
-        <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900">
+  <!-- ======================================================== -->
+  <!-- ANDROID APP STYLE COLLAPSING TOOLBAR (#3F51B5) -->
+  <!-- ======================================================== -->
+  <!-- Sticky Top App Bar (Pins to top-0 across the entire page) -->
+  <header id="stickyToolbar" class="sticky top-0 z-50 w-full text-white transition-shadow duration-150" style="background-color: #3F51B5;">
+    <div class="max-w-2xl mx-auto px-6 h-14 sm:h-16 flex items-center justify-between">
+      
+      <!-- Collapsed Title in Toolbar (Fades in smoothly on scroll) -->
+      <div class="flex items-center min-w-0 pr-3">
+        <span id="collapsedTitle" class="text-base sm:text-lg font-medium tracking-tight text-white truncate transition-all duration-150 opacity-0 select-none">
           David Hodges
-        </h1>
-        <a 
-          href="https://play.google.com/store/apps/dev?id=4749300962545882389" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="text-xs text-zinc-600 hover:text-zinc-900 transition-colors underline decoration-zinc-300 underline-offset-4"
-        >
-          Google Play Profile ↗
-        </a>
-      </div>
-      <p class="text-sm text-zinc-600 leading-relaxed">
-        IT Support Engineer based in the UK, who makes apps in their free time.  I've built up a small collection of hobby project over the years to scratch my own itches — mostly practical utilities to fix odd quirks, track finances locally, or keep things tidy without subscriptions or cloud fuss.
-      </p>
-    </header>
-
-    <!-- APPS LIST -->
-    <main>
-      <div class="flex items-center justify-between pb-3 mb-6 border-b border-zinc-200">
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-600">
-          Apps
-        </h2>
-        <span class="text-xs text-zinc-600" id="appCount"></span>
+        </span>
       </div>
 
-      <!-- Projects Container (Rendered from simple array below) -->
-      <div id="appsList" class="space-y-6">
-        <!-- Rendered via vanilla JavaScript -->
-      </div>
+      <!-- Toolbar Action: Google Play Profile -->
+      <a 
+        href="https://play.google.com/store/apps/dev?id=4749300962545882389" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="text-xs font-medium text-white/95 hover:text-white bg-white/10 hover:bg-white/20 active:bg-white/25 px-3 py-1.5 rounded-full transition-colors inline-flex items-center gap-1.5 flex-shrink-0"
+      >
+        <span>Google Play Profile</span>
+        <span class="text-white/70 text-[11px]">↗</span>
+      </a>
 
-      <!-- NOTES & PRIVACY SECTION -->
-      <section class="mt-16 pt-8 border-t border-zinc-200">
-        <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-600 mb-3">
-          A quick note on privacy
-        </h3>
-        <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
-          None of these apps collect your personal information, sell telemetry, or run background ad trackers. What happens on your phone stays on your phone.
+    </div>
+  </header>
+
+  <!-- Expanded Title Area (Scrolls naturally under the sticky toolbar) -->
+  <div id="expandedHeader" class="w-full text-white pb-7 sm:pb-8" style="background-color: #3F51B5;">
+    <div class="max-w-2xl mx-auto px-6 pt-1">
+      <h1 id="expandedTitle" class="text-2xl sm:text-3xl font-semibold tracking-tight text-white transition-all duration-150 origin-left">
+        David Hodges
+      </h1>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MAIN PAGE CONTENT CONTAINER -->
+  <!-- ======================================================== -->
+  <div class="max-w-2xl mx-auto px-6 pt-8 pb-16 sm:pb-24 w-full flex-1 flex flex-col justify-between">
+    
+    <div>
+      <!-- INTRO / BIO PARAGRAPH -->
+      <div class="mb-10">
+        <p class="text-sm text-zinc-600 leading-relaxed">
+          I'm an IT Support Engineer based in the UK who makes Android apps in their free time. Over the last 15 years I've built up a small collection of hobby projects which are mostly practical utilities to fix odd quirks, track finances (or buses) all without subscriptions or cloud fuss (where feasible, obviously I have to get the Bus data from somewhere).
         </p>
-        <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-          If you need support, have spotted a bug, or just fancy getting in touch, feel free to drop me an email at 
-          <a href="mailto:david+website@hodges.dev" class="text-zinc-900 underline decoration-zinc-300 underline-offset-2 hover:decoration-zinc-800">david+website@hodges.dev</a>.
-        </p>
-      </section>
+      </div>
 
-    </main>
+      <!-- APPS LIST SECTION -->
+      <main>
+        <div class="flex items-center justify-between pb-3 mb-6 border-b border-zinc-200">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-600">
+            Apps
+          </h2>
+          <span class="text-xs text-zinc-600" id="appCount"></span>
+        </div>
+
+        <!-- Projects Container (Rendered from APPS array below) -->
+        <div id="appsList" class="space-y-6">
+          <!-- Rendered via vanilla JavaScript -->
+        </div>
+
+        <!-- NOTES & PRIVACY SECTION -->
+        <section class="mt-16 pt-8 border-t border-zinc-200">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-600 mb-3">
+            A quick note on privacy
+          </h3>
+          <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
+            None of these apps collect your personal information, sell telemetry, or run background ad trackers. What happens on your phone stays on your phone.
+          </p>
+          <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+            If you need support, have spotted a bug, or just fancy getting in touch, feel free to drop me an email at 
+            <a href="mailto:david+website@hodges.dev" class="text-zinc-900 underline decoration-zinc-300 underline-offset-2 hover:decoration-zinc-800">david+website@hodges.dev</a>.
+          </p>
+        </section>
+      </main>
+    </div>
 
     <!-- FOOTER -->
     <footer class="mt-20 pt-6 border-t border-zinc-200 text-xs text-zinc-600 flex flex-col sm:flex-row items-baseline justify-between gap-3">
@@ -191,7 +226,43 @@
       document.getElementById('currentYear').textContent = new Date().getFullYear();
     }
 
+    /**
+     * Android Collapsing Toolbar animation
+     * Smoothly shrinks and docks large title into sticky toolbar with Material elevation shadow
+     */
+    function setupCollapsingBar() {
+      const stickyBar = document.getElementById('stickyToolbar');
+      const collapsedTitle = document.getElementById('collapsedTitle');
+      const expandedTitle = document.getElementById('expandedTitle');
+      if (!stickyBar || !collapsedTitle || !expandedTitle) return;
+
+      function onScroll() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const collapseDistance = 46; // threshold to complete transition
+        const progress = Math.min(Math.max(scrollY / collapseDistance, 0), 1);
+
+        // Fade out expanded title and translate slightly upward
+        expandedTitle.style.opacity = (1 - progress).toString();
+        expandedTitle.style.transform = `translateY(${-progress * 6}px)`;
+
+        // Fade in collapsed title in sticky bar
+        collapsedTitle.style.opacity = progress.toString();
+        collapsedTitle.style.transform = `translateY(${(1 - progress) * 4}px)`;
+
+        // Material elevation shadow on scroll
+        if (scrollY > 4) {
+          stickyBar.style.boxShadow = '0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14)';
+        } else {
+          stickyBar.style.boxShadow = 'none';
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
     renderApps();
+    setupCollapsingBar();
   </script>
 </body>
 </html>
