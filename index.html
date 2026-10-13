@@ -39,32 +39,17 @@
   <!-- ======================================================== -->
   <!-- Sticky Top App Bar (Pins to top-0 across the entire page) -->
   <header id="stickyToolbar" class="sticky top-0 z-50 w-full text-white transition-shadow duration-150" style="background-color: #3F51B5;">
-    <div class="max-w-2xl mx-auto px-6 h-14 sm:h-16 flex items-center justify-between">
-      
+    <div class="max-w-4xl mx-auto px-6 h-14 sm:h-16 flex items-center">
       <!-- Collapsed Title in Toolbar (Fades in smoothly on scroll) -->
-      <div class="flex items-center min-w-0 pr-3">
-        <span id="collapsedTitle" class="text-base sm:text-lg font-medium tracking-tight text-white truncate transition-all duration-150 opacity-0 select-none">
-          David Hodges
-        </span>
-      </div>
-
-      <!-- Toolbar Action: Google Play Profile -->
-      <a 
-        href="https://play.google.com/store/apps/dev?id=4749300962545882389" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="text-xs font-medium text-white/95 hover:text-white bg-white/10 hover:bg-white/20 active:bg-white/25 px-3 py-1.5 rounded-full transition-colors inline-flex items-center gap-1.5 flex-shrink-0"
-      >
-        <span>Google Play Profile</span>
-        <span class="text-white/70 text-[11px]">↗</span>
-      </a>
-
+      <span id="collapsedTitle" class="text-base sm:text-lg font-medium tracking-tight text-white truncate transition-all duration-150 opacity-0 select-none">
+        David Hodges
+      </span>
     </div>
   </header>
 
   <!-- Expanded Title Area (Scrolls naturally under the sticky toolbar) -->
   <div id="expandedHeader" class="w-full text-white pb-7 sm:pb-8" style="background-color: #3F51B5;">
-    <div class="max-w-2xl mx-auto px-6 pt-1">
+    <div class="max-w-4xl mx-auto px-6 pt-1">
       <h1 id="expandedTitle" class="text-2xl sm:text-3xl font-semibold tracking-tight text-white transition-all duration-150 origin-left">
         David Hodges
       </h1>
@@ -72,20 +57,42 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- MAIN PAGE CONTENT CONTAINER -->
+  <!-- MAIN PAGE CONTENT CONTAINER (2-Column Responsive Layout) -->
   <!-- ======================================================== -->
-  <div class="max-w-2xl mx-auto px-6 pt-8 pb-16 sm:pb-24 w-full flex-1 flex flex-col justify-between">
+  <div class="max-w-4xl mx-auto px-6 pt-8 pb-16 sm:pb-24 w-full flex-1 flex flex-col justify-between">
     
-    <div>
-      <!-- INTRO / BIO PARAGRAPH -->
-      <div class="mb-10">
-        <p class="text-sm text-zinc-600 leading-relaxed">
-          I'm an IT Support Engineer based in the UK who makes Android apps in their free time. Over the last 15 years I've built up a small collection of hobby projects which are mostly practical utilities to fix odd quirks, track finances (or buses) all without subscriptions or cloud fuss (where feasible, obviously I have to get the Bus data from somewhere).
-        </p>
-      </div>
+    <div class="flex flex-col md:flex-row md:items-start gap-8 lg:gap-12">
+      
+      <!-- LEFT-HAND SIDEBAR (About & Links Menu) -->
+      <aside class="w-full md:w-64 lg:w-72 shrink-0 md:sticky md:top-20 space-y-7">
+        
+        <!-- ABOUT BIO -->
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+            About me
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+            I'm an IT Support Engineer based in the UK who makes Android apps in my free time. Over the last 15 years I've built up a small collection of hobby projects which are mostly practical utilities to fix odd quirks, track finances (or buses) all without subscriptions or cloud fuss (where feasible, obviously I have to get the Bus data from somewhere).
+          </p>
+        </div>
 
-      <!-- APPS LIST SECTION -->
-      <main>
+        <!-- LINKS MENU -->
+        <div>
+          <div class="flex items-center justify-between pb-2 mb-2 border-b border-zinc-200">
+            <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Links
+            </h2>
+            <span class="text-[11px] text-zinc-400" id="linksCount"></span>
+          </div>
+          <nav id="linksList" class="flex flex-col space-y-1">
+            <!-- Rendered dynamically from LINKS array -->
+          </nav>
+        </div>
+
+      </aside>
+
+      <!-- RIGHT-HAND MAIN COLUMN (Apps list & Notes) -->
+      <main class="flex-1 min-w-0">
         <div class="flex items-center justify-between pb-3 mb-6 border-b border-zinc-200">
           <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-600">
             Apps
@@ -99,7 +106,7 @@
         </div>
 
         <!-- NOTES & PRIVACY SECTION -->
-        <section class="mt-16 pt-8 border-t border-zinc-200">
+        <section class="mt-14 pt-8 border-t border-zinc-200">
           <h3 class="text-xs font-semibold uppercase tracking-wider text-zinc-600 mb-3">
             A quick note on privacy
           </h3>
@@ -112,6 +119,7 @@
           </p>
         </section>
       </main>
+
     </div>
 
     <!-- FOOTER -->
@@ -144,7 +152,7 @@
       {
         name: "VolumeLink",
         tagline: "Android TV & Sonos volume synchroniser",
-        description: "Keeps your Android TV's on-screen volume display in sync with optical-connected Sonos soundbars (such as the Playbar). Solves the annoying volume mismatch without needing extra remotes or hardware.",
+        description: "Keeps Android TV's on-screen volume display in sync with optical-connected Sonos soundbars (such as the Playbar). Solves the annoying volume mismatch without needing extra remotes or hardware.\n\nThis project also needed a device flow authorization server running on the internet to facilitate MFA logins to a Sonos account.",
         status: "Active",
         link: "https://play.google.com/store/apps/details?id=dev.hodges.volumelink"
       },
@@ -192,6 +200,15 @@
         const primaryUrl = playStoreUrl || appStoreUrl || null;
         const hasStoreLinks = Boolean(playStoreUrl || appStoreUrl);
 
+        // Supports strings with \n\n (paragraphs), \n (line breaks), or arrays of paragraphs
+        const descParagraphs = Array.isArray(app.description)
+          ? app.description
+          : (app.description || '').split('\n\n');
+
+        const descHtml = descParagraphs.map(p => `
+          <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed">${p.replace(/\n/g, '<br>')}</p>
+        `).join('');
+
         return `
         <article class="p-5 rounded-lg bg-white border border-zinc-200/80 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-zinc-300 transition-colors">
           <div class="flex items-baseline justify-between gap-3 mb-1">
@@ -219,9 +236,9 @@
             ${app.tagline}
           </div>
           
-          <p class="text-xs sm:text-sm text-zinc-600 leading-relaxed ${hasStoreLinks ? 'mb-3' : ''}">
-            ${app.description}
-          </p>
+          <div class="space-y-2.5 ${hasStoreLinks ? 'mb-3' : ''}">
+            ${descHtml}
+          </div>
 
           ${hasStoreLinks ? `
             <div class="pt-2.5 border-t border-zinc-100 flex items-center gap-2">
@@ -263,6 +280,68 @@
     }
 
     /**
+     * ========================================================
+     * LINKS CONFIGURATION
+     * Add, edit, or reorder your profile and external links here.
+     * ========================================================
+     */
+    const LINKS = [
+      {
+        label: "Google Play",
+        url: "https://play.google.com/store/apps/dev?id=4749300962545882389",
+        note: "Developer profile"
+      },
+      {
+        label: "GitHub",
+        url: "https://github.com/daveeeh",
+        note: "github.com/daveeeh"
+      },
+      {
+        label: "Email",
+        url: "mailto:david+website@hodges.dev",
+        note: "david+website@hodges.dev"
+      },
+      {
+        label: "X (Twitter)",
+        url: "https://x.com/daveeeh",
+        note: "@daveeeh"
+      }
+    ];
+
+    function renderLinks() {
+      const container = document.getElementById('linksList');
+      if (!container) return;
+
+      const countEl = document.getElementById('linksCount');
+      if (countEl) {
+        countEl.textContent = `${LINKS.length}`;
+      }
+
+      container.innerHTML = LINKS.map(link => `
+        <a 
+          href="${link.url}" 
+          target="${link.url.startsWith('mailto:') ? '_self' : '_blank'}" 
+          rel="noopener noreferrer"
+          class="group py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100 transition-colors flex items-baseline justify-between gap-2"
+        >
+          <div class="min-w-0">
+            <span class="text-xs sm:text-sm font-medium text-zinc-800 group-hover:text-indigo-600 transition-colors">
+              ${link.label}
+            </span>
+            ${link.note ? `
+              <span class="block text-[11px] text-zinc-400 group-hover:text-zinc-500 transition-colors truncate">
+                ${link.note}
+              </span>
+            ` : ''}
+          </div>
+          <span class="text-zinc-400 group-hover:text-indigo-600 text-xs transition-colors shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transform duration-150">
+            ↗
+          </span>
+        </a>
+      `).join('');
+    }
+
+    /**
      * Android Collapsing Toolbar animation
      * Smoothly shrinks and docks large title into sticky toolbar with Material elevation shadow
      */
@@ -298,7 +377,26 @@
     }
 
     renderApps();
+    renderLinks();
     setupCollapsingBar();
+  </script>
+
+  <!-- Ko-fi Floating Widget Overlay -->
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script>
+    function initKofi() {
+      if (window.kofiWidgetOverlay) {
+        kofiWidgetOverlay.draw('andmoney', {
+          'type': 'floating-chat',
+          'floating-chat.donateButton.text': 'Support Me',
+          'floating-chat.donateButton.background-color': '#5cb85c',
+          'floating-chat.donateButton.text-color': '#fff'
+        });
+      } else {
+        setTimeout(initKofi, 100);
+      }
+    }
+    initKofi();
   </script>
 </body>
 </html>
